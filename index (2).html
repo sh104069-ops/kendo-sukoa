@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1d2b4a">
+<title>剣道 試合スコアボード</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="brand">
+    <span class="logo">剣</span>
+    <div>
+      <div class="app-title" id="app-title">剣道大会</div>
+      <div class="app-sub">試合スコアボード</div>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-view="team">団体戦</button>
+    <button data-view="indiv">個人戦</button>
+    <button data-view="teams">チーム登録</button>
+    <button data-view="history">記録</button>
+    <button data-view="settings">設定</button>
+  </nav>
+  <button class="icon-btn" data-act="fullscreen" title="全画面表示">全画面</button>
+</header>
+
+<main>
+  <section id="view-team" class="view">
+    <div id="team-setup"></div>
+    <div id="team-board"></div>
+  </section>
+
+  <section id="view-indiv" class="view">
+    <div id="indiv-setup"></div>
+    <div id="indiv-board"></div>
+    <div id="indiv-log"></div>
+  </section>
+
+  <section id="view-teams" class="view"></section>
+  <section id="view-history" class="view"></section>
+  <section id="view-settings" class="view"></section>
+</main>
+
+<input type="file" id="import-file" accept="application/json,.json" hidden>
+<script src="script.js"></script>
+</body>
+</html>

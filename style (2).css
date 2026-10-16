@@ -1,0 +1,235 @@
+:root{
+  --ai:#1d2b4a; --ai-2:#2c3e66;
+  --bg:#f2efe8; --card:#fff; --ink:#1a1a1a; --muted:#6b6b6b; --line:#d9d4c7;
+  --red:#c8102e; --red-soft:#fde8eb; --white-soft:#eef1f7;
+  --gold:#b8860b; --ok:#2e7d32; --warn:#e65100;
+  --radius:14px; --shadow:0 2px 10px rgba(0,0,0,.08);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom)}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+input,select,textarea{font:inherit}
+
+/* ===== ヘッダー ===== */
+.app-header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--ai);color:#fff;padding:8px 14px;padding-top:max(8px,env(safe-area-inset-top))}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--ai);display:grid;place-items:center;
+  font-weight:900;font-size:22px;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;flex-shrink:0}
+.app-title{font-weight:700;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40vw}
+.app-sub{font-size:11px;opacity:.75}
+.tabs{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.tabs button{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:7px 14px;font-size:14px}
+.tabs button.active{background:#fff;color:var(--ai);font-weight:700}
+.icon-btn{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:6px 10px;font-size:13px}
+
+main{max-width:1200px;margin:0 auto;padding:14px}
+.view{display:none}
+.view.active{display:block}
+
+/* ===== 共通部品 ===== */
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.card-head h2{margin:0;font-size:18px}
+.card-head h2 small{font-weight:400;color:var(--muted);font-size:13px;margin-left:6px}
+.setup.collapsed .card-head{margin:0}
+.head-btns{display:flex;gap:6px;flex-wrap:wrap}
+
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:9px 14px;font-size:14px;min-height:40px}
+.btn:hover:not(:disabled){border-color:var(--ai)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.primary{background:var(--ai);border-color:var(--ai);color:#fff;font-weight:700}
+.btn.danger{background:var(--red);border-color:var(--red);color:#fff}
+.btn.danger-ghost{color:var(--red);border-color:#f0b9c2}
+.btn.ghost{background:transparent;color:var(--muted)}
+.btn.small{padding:5px 10px;min-height:32px;font-size:13px}
+.btn.round{width:40px;height:40px;padding:0;border-radius:50%;font-size:20px}
+.btn.side-red{border-color:var(--red);color:var(--red);font-weight:700}
+.btn.side-white{border-color:var(--ai);color:var(--ai);font-weight:700}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 12px;font-size:13px}
+.chip.on{background:var(--ai);color:#fff;border-color:var(--ai)}
+
+.side-tag{display:inline-grid;place-items:center;min-width:28px;height:28px;padding:0 6px;border-radius:6px;font-weight:800;font-size:15px;flex-shrink:0}
+.side-tag.red{background:var(--red);color:#fff}
+.side-tag.white{background:#fff;color:var(--ai);border:2px solid var(--ai)}
+
+.hint{color:var(--muted);font-size:13px;margin:8px 0}
+.empty{color:var(--muted);text-align:center;padding:16px}
+.print-only{display:none}
+
+/* ===== オーダー設定 ===== */
+.setup-teams{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:start}
+.setup-team{display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:10px}
+.setup-team.red{background:var(--red-soft)}
+.setup-team.white{background:var(--white-soft)}
+.setup-team .side-tag{align-self:flex-start}
+.setup-team input,.setup-team select,.field input,.field select,.field textarea,.setup-order input,.rep-setup select{
+  width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 10px;background:#fff;font-size:15px}
+.vs{align-self:center;font-weight:800;color:var(--muted)}
+.size-ctl{display:flex;align-items:center;gap:8px;margin:12px 0;flex-wrap:wrap}
+.size-ctl .lbl{font-weight:700}
+.size-num{font-size:24px;min-width:36px;text-align:center}
+.presets{display:flex;gap:6px;margin-left:8px;flex-wrap:wrap}
+.setup-order{width:100%;border-collapse:collapse}
+.setup-order th,.setup-order td{padding:4px 6px;border-bottom:1px solid #eee;text-align:left}
+.setup-order thead th{font-size:13px;color:var(--muted)}
+.setup-order tbody th{white-space:nowrap;font-weight:600;width:7.5em}
+.th-red{color:var(--red)!important}
+.th-white{color:var(--ai)!important}
+.setup-order tr.locked input{background:#f3f3f3;color:var(--muted)}
+.setup-actions,.center-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:10px}
+.center-actions{justify-content:center;margin:0 0 14px}
+
+/* ===== 団体戦 集計 ===== */
+.summary{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:stretch;margin-bottom:8px}
+.team-score{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:12px 16px;border-top:8px solid;transition:.2s}
+.team-score.red{border-top-color:var(--red)}
+.team-score.white{border-top-color:var(--ai)}
+.team-score.win{box-shadow:0 0 0 3px var(--gold),var(--shadow)}
+.team-score.lose{opacity:.55}
+.tname{display:flex;gap:8px;align-items:center;font-weight:700;font-size:18px;min-width:0;word-break:break-all}
+.nums{display:flex;align-items:flex-end;gap:18px;margin-top:6px}
+.num b{font-size:56px;line-height:1;font-variant-numeric:tabular-nums}
+.num small{font-size:18px;margin-left:4px;font-weight:700}
+.num.sub b{font-size:34px;color:var(--muted)}
+.vs-big{align-self:center;font-size:22px;font-weight:900;color:var(--muted)}
+.team-banner{text-align:center;padding:10px;border-radius:10px;background:#e8e4da;font-weight:700;margin-bottom:14px;font-size:17px}
+.team-banner small{display:block;font-weight:400;font-size:13px;margin-top:2px}
+.team-banner.red{background:var(--red);color:#fff;font-size:22px}
+.team-banner.white{background:var(--ai);color:#fff;font-size:22px}
+.team-banner.rep{background:var(--gold);color:#fff}
+
+/* ===== 試合パネル ===== */
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.bout-label{font-size:26px;font-weight:800;display:flex;align-items:center;gap:10px}
+.badge{font-size:14px;padding:3px 10px;border-radius:999px;background:var(--gold);color:#fff}
+.badge.await{background:var(--muted)}
+.timer-box{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.timer{font-size:56px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:1px;background:#111;color:#fff;
+  border-radius:10px;padding:0 16px;min-width:180px;text-align:center;line-height:1.25}
+.timer.running{color:#7CFC9A}
+.timer.encho{color:#ffd54f}
+.timer.timeout{color:#ff6b6b;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.35}}
+.timer-btns{display:flex;gap:6px;flex-wrap:wrap}
+.timer-btn{min-width:110px;font-weight:700;background:var(--ok)!important;color:#fff!important;border-color:var(--ok)!important}
+.timer-btn.stop{background:var(--warn)!important;border-color:var(--warn)!important}
+.notice{margin:10px 0 0;padding:8px 12px;background:#fff6dd;border-left:4px solid var(--gold);border-radius:6px;font-size:14px}
+
+.fighters{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.fighter{border-radius:12px;padding:12px;border:3px solid transparent;display:flex;flex-direction:column;gap:8px;transition:.2s;min-width:0}
+.fighter.red{background:var(--red-soft);border-color:#f3c3cb}
+.fighter.white{background:var(--white-soft);border-color:#cdd5e6}
+.fighter.winner{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset}
+.fighter.loser{opacity:.6}
+.f-top{display:flex;align-items:center;gap:8px;min-height:34px}
+.f-aff{color:var(--muted);font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.win-badge{margin-left:auto;background:var(--gold);color:#fff;font-weight:900;border-radius:50%;width:34px;height:34px;display:grid;place-items:center;flex-shrink:0}
+.f-name{font-size:30px;font-weight:800;line-height:1.2;word-break:break-all}
+.absent{color:var(--muted);font-weight:400}
+.f-marks{display:flex;gap:8px;min-height:64px;align-items:center;flex-wrap:wrap}
+.mk{display:inline-grid;place-items:center;width:58px;height:58px;font-size:34px;font-weight:900;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;background:#fff;border-radius:8px}
+.mk.first{border:3px solid var(--ink);border-radius:50%}
+.mk.empty{background:transparent}
+.f-hansoku{font-size:14px}
+.f-hansoku .tri{font-size:22px;color:var(--warn);margin:0 4px}
+.f-hansoku small{color:var(--muted)}
+.waza{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.waza-btn{border:none;border-radius:10px;padding:8px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:62px;box-shadow:0 1px 0 rgba(0,0,0,.15);touch-action:manipulation}
+.fighter.red .waza-btn{background:var(--red);color:#fff}
+.fighter.white .waza-btn{background:#fff;color:var(--ai);border:2px solid var(--ai)}
+.waza-btn b{font-size:24px;line-height:1.1}
+.waza-btn small{font-size:12px}
+.fighter .waza-btn.hansoku{background:#fff3e0;color:var(--warn);border:2px solid #ffb74d}
+.waza-btn:active:not(:disabled){transform:scale(.96)}
+.waza-btn:disabled{opacity:.35;cursor:not-allowed}
+.result-banner{margin-top:12px;text-align:center;font-size:22px;font-weight:800;padding:10px;border-radius:10px;background:#e8e4da}
+.result-banner.red{background:var(--red);color:#fff}
+.result-banner.white{background:var(--ai);color:#fff}
+.controls{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;justify-content:center}
+
+/* ===== 試合表 ===== */
+.table-card{overflow-x:auto}
+.score-table{width:100%;border-collapse:collapse;min-width:560px}
+.score-table th,.score-table td{border-bottom:1px solid #ece8de;padding:8px 6px;text-align:center}
+.score-table thead th{background:#f7f5ef;font-size:14px}
+.score-table tbody tr{cursor:pointer}
+.score-table tbody tr:hover{background:#faf8f2}
+.score-table tbody tr.active{background:#fff6dd;outline:2px solid var(--gold);outline-offset:-2px}
+.score-table tbody th{white-space:nowrap;font-weight:700}
+.score-table td.nm{font-weight:600;font-size:16px}
+.score-table td.win{background:rgba(184,134,11,.13)}
+.score-table td.nm.win{font-weight:800}
+.score-table .mk{width:30px;height:30px;font-size:18px;background:transparent}
+.score-table .mk.first{border-width:2px}
+.hs{color:var(--warn);margin-left:2px;font-size:14px}
+.score-table td.res{font-weight:700;white-space:nowrap;color:var(--muted);font-size:14px}
+.score-table td.res.red{color:var(--red)}
+.score-table td.res.white{color:var(--ai)}
+.score-table tfoot th,.score-table tfoot td{font-weight:800;font-size:16px;border-top:2px solid var(--ai);border-bottom:none}
+.legend{font-size:12px;color:var(--muted);margin:8px 0 0}
+
+/* ===== 代表者戦 ===== */
+.rep-setup{border:2px solid var(--gold)}
+.rep-setup h3{margin:0 0 4px}
+.rep-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0}
+.rep-row select{width:auto;min-width:140px}
+
+/* ===== チーム登録・設定 ===== */
+.field{display:block;margin-bottom:10px}
+.field>span{display:block;font-size:13px;font-weight:700;margin-bottom:4px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.team-list{list-style:none;margin:0;padding:0}
+.team-item{display:flex;gap:10px;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px solid #eee}
+.ti-main{min-width:0}
+.cnt{color:var(--muted);font-size:13px;margin-left:8px}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chip-s{font-size:12px;background:#f1eee6;border-radius:6px;padding:2px 6px}
+.ti-btns{display:flex;gap:4px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.rules ul{margin:0;padding-left:1.2em;line-height:1.8;font-size:14px}
+
+/* ===== 記録 ===== */
+.hist{border-bottom:1px solid #eee;padding:10px 0;display:block}
+.hist summary{cursor:pointer}
+.hist .date{color:var(--muted);font-size:12px;margin-right:8px}
+.h-main b.w{color:var(--gold)}
+.h-res{display:block;font-weight:700;font-size:14px;margin-top:2px}
+.mini-table{margin-top:6px;border-collapse:collapse;font-size:13px}
+.mini-table th,.mini-table td{padding:3px 8px;border-bottom:1px solid #f0f0f0;text-align:center}
+
+/* ===== スマホ ===== */
+@media (max-width:760px){
+  .app-title{max-width:55vw}
+  .tabs{margin-left:0;width:100%;overflow-x:auto;flex-wrap:nowrap}
+  .tabs button{flex-shrink:0;padding:6px 12px}
+  main{padding:10px}
+  .num b{font-size:40px}
+  .num.sub b{font-size:26px}
+  .tname{font-size:15px}
+  .timer{font-size:40px;min-width:130px}
+  .bout-label{font-size:20px}
+  .f-name{font-size:20px}
+  .mk{width:42px;height:42px;font-size:24px}
+  .f-marks{min-height:46px}
+  .waza{grid-template-columns:repeat(3,1fr)}
+  .setup-teams{grid-template-columns:1fr}
+  .setup-teams .vs{display:none}
+  .field-row{grid-template-columns:1fr}
+  .summary{gap:6px}
+  .team-score{padding:8px 10px}
+}
+
+/* ===== 印刷（団体戦の試合表） ===== */
+@media print{
+  .app-header,#team-setup,.panel,.center-actions,.rep-setup,.controls{display:none!important}
+  body{background:#fff}
+  .print-only{display:block;font-size:20px;margin:0 0 10px}
+  .card,.team-score{box-shadow:none;border:1px solid #999}
+  .score-table{min-width:0}
+  .view{display:none!important}
+  #view-team.active{display:block!important}
+}
